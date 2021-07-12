@@ -1,0 +1,26 @@
+<codelist name="ActivityScope" xml:lang="en" complete="1" embedded="0">
+    <metadata>
+        <name>
+            <narrative>Activity Scope</narrative>
+        </name>
+        <description>
+            <narrative>Geographic scope of activity</narrative>
+        </description>
+        <category>
+            <narrative>Non-Core</narrative>
+        </category>
+    </metadata>
+    <codelist-items>
+        <codelist-item>
+            <code>1</code>
+            <name>
+                <narrative>Global</narrative>
+                <narrative xml:lang="fr">Mondial</narrative>
+            </name>
+            <description>
+                <narrative>The activity scope is global</narrative>
+                <narrative xml:lang="fr">L'activité est de portée mondiale</narrative>
+            </description>
+        </codelist-item>
+    </codelist-items>
+</codelist>

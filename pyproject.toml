@@ -1,0 +1,17 @@
+[tool.isort]
+profile = 'black'
+extend_skip = ['env']
+
+[tool.black]
+line-length = 180
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+  | \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \env
+)/
+'''
