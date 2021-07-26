@@ -6,9 +6,7 @@ from xml.dom import minidom
 import pytest
 
 from activity.models import IatiActivities, Title
-from codelists.models import Codelist, CodelistItem
 from models import Narrative
-from organisation.models import ReportingOrg
 
 logger = logging.getLogger(__name__)
 
@@ -27,42 +25,6 @@ def narrative_element():
 @pytest.fixture
 def fr_narrative():
     return ET.fromstring('<narrative xml:lang="fr">Mondial</narrative>')
-
-
-@pytest.fixture
-def clitem():
-    return ET.fromstring(
-        """
-     <codelist-item>
-            <code>1</code>
-            <name>
-                <narrative>Global</narrative>
-                <narrative xml:lang="fr">Mondial</narrative>
-            </name>
-            <description>
-                <narrative>The activity scope is global</narrative>
-                <narrative xml:lang="fr">L'activité est de portée mondiale</narrative>
-            </description>
-        </codelist-item>
-        """
-    )
-
-
-@pytest.fixture
-def clitems():
-    channel_codes = Path(".") / "data" / "sample" / "CRSChannelCode.xml"
-    return ET.parse(channel_codes)
-
-
-@pytest.fixture
-def el_reporting_org():
-    return ET.fromstring(
-        """
-        <reporting-org type="22" ref="BE-BCE_KBO-0421210424">
-        <narrative xml:lang="nl">Koepel van de Vlaamse Noord-Zuidbeweging 11.11.11 VZW</narrative>
-        </reporting-org>
-    """
-    )
 
 
 @pytest.fixture
@@ -87,44 +49,6 @@ def test_narrative_lang(fr_narrative):
     n = Narrative.from_element(fr_narrative)
     assert n.text == "Mondial"
     assert n.lang == "fr"
-
-
-def test_codelist_items(clitems):
-    items = Codelist.from_element(clitems.getroot())  # type: Codelist
-    assert isinstance(items, Codelist)
-
-
-def test_shelve_codelist_items(clitems):
-    """
-    Store the JSON representation of
-    codelist items
-    """
-    import shelve
-
-    with shelve.open("tester") as shelf:
-        items = Codelist.from_element(clitems.getroot())  # type: Codelist
-        for item in items.codelist_items.codelist_item:
-            shelf[f"{items.name}-{item.code}"] = item.dict()
-            CodelistItem(**item.dict())
-
-    # Test that we can rehydrate a codelist from a dbm
-
-
-def test_codelist_item(clitem):
-    n = CodelistItem.from_element(clitem)  # type: CodelistItem
-    assert n.name.narrative[0].text == "Global"
-    assert len(n.description.narrative) == 2
-    assert n.description.narrative[1].text == "L'activité est de portée mondiale"
-    assert n.description.narrative[1].lang == "fr"
-    assert n.code == "1"
-
-
-def test_reporting_org(el_reporting_org):
-    el = ReportingOrg.from_element(el_reporting_org)
-    assert el.type == 22
-    assert el.ref == "BE-BCE_KBO-0421210424"
-    assert not el.secondary_reporter
-    assert len(el.narrative) == 1
 
 
 @pytest.fixture
