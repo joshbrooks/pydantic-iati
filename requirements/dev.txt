@@ -4,13 +4,11 @@
 #
 #    ./pipcompilewrapper
 #
-appdirs==1.4.4
-    # via black
 backports.entry-points-selectable==1.1.0
     # via virtualenv
-black==21.7b0
+black==21.8b0
     # via -r dev.in
-cfgv==3.3.0
+cfgv==3.3.1
     # via pre-commit
 click==8.0.1
     # via black
@@ -36,9 +34,11 @@ nodeenv==1.6.0
     # via pre-commit
 pathspec==0.9.0
     # via black
-platformdirs==2.2.0
-    # via virtualenv
-pre-commit==2.14.0
+platformdirs==2.3.0
+    # via
+    #   black
+    #   virtualenv
+pre-commit==2.14.1
     # via -r dev.in
 pycodestyle==2.7.0
     # via flake8
@@ -46,7 +46,7 @@ pyflakes==2.3.1
     # via flake8
 pyyaml==5.4.1
     # via pre-commit
-regex==2021.8.3
+regex==2021.8.28
     # via black
 six==1.16.0
     # via
@@ -59,9 +59,10 @@ toml==0.10.2
     #   pre-commit
 tomli==1.2.1
     # via black
-typing-extensions==3.10.0.0
+typing-extensions==3.10.0.2
     # via
     #   -c ./base.txt
+    #   black
     #   mypy
 virtualenv==20.7.2
     # via pre-commit

@@ -10,21 +10,27 @@ certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
     # via requests
+coverage==5.5
+    # via pytest-cov
 idna==2.10
     # via
-    #   -c base.in
+    #   -c ./base.txt
     #   requests
 iniconfig==1.1.1
     # via pytest
 packaging==21.0
     # via pytest
-pluggy==0.13.1
+pluggy==1.0.0
     # via pytest
 py==1.10.0
     # via pytest
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.4
+pytest==6.2.5
+    # via
+    #   -r test.in
+    #   pytest-cov
+pytest-cov==2.12.1
     # via -r test.in
 requests==2.26.0
     # via requests-mock
@@ -33,6 +39,8 @@ requests-mock==1.9.3
 six==1.16.0
     # via requests-mock
 toml==0.10.2
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 urllib3==1.26.6
     # via requests

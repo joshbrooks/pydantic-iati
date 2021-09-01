@@ -1,3 +1,4 @@
--c base.in
+-c ./base.txt
 pytest
+pytest-cov
 requests_mock
