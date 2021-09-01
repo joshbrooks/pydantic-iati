@@ -12,3 +12,6 @@ ignore_errors = True
 omit =
     tests/*
     env/*
+
+[xml]
+    output = coverage.xml
