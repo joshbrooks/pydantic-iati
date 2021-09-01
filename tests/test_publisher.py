@@ -1,10 +1,9 @@
-
 import pytest
 import xml.etree.ElementTree as ET
-from pathlib import Path
 from registry.models import Publisher, IatiPublishersList
 
 # Intended to work with data pulled from https://www.iatiregistry.org/publisher/download/xml
+
 
 @pytest.fixture
 def publisher_element():
@@ -19,6 +18,7 @@ def publisher_element():
         </iati-identifier>
         """
     )
+
 
 @pytest.fixture
 def publishers_element():

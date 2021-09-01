@@ -233,7 +233,7 @@ class XmlBaseModel(PydanticBaseModel):
             else:
                 tag_name = re.sub(r"(?<!^)(?=[A-Z])", "-", self.__class__.__name__).lower()
 
-        el = ET.Element(tag_name)
+        el = ET.Element(f"{tag_name}" or "")
 
         def is_sub(field: fields.ModelField, klasses: Union[Type, List[Type]]) -> bool:
             if isinstance(klasses, List):
