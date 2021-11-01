@@ -3,9 +3,6 @@ from decimal import Decimal
 from enum import Enum, IntEnum
 from typing import List, Optional
 
-from pydantic import Field, HttpUrl
-from typing_extensions import Annotated
-
 from models import (
     CodelistValue,
     DecimalText,
@@ -17,6 +14,8 @@ from models import (
     XmlLanguageField,
 )
 from organisation.models import ReportingOrg
+from pydantic import Field, HttpUrl
+from typing_extensions import Annotated
 
 
 class ChannelCode(CodelistValue):
@@ -64,6 +63,17 @@ NS = {"xml": "http://www.w3.org/XML/1998/namespace"}
 
 class Narratives(XmlBaseModel):
     narrative: List[Narrative]
+
+    @property
+    def default(self) -> Optional[Narrative]:
+        """
+        Return the first narrative with no
+        'lang' attribute
+        """
+        for n in self.narrative:
+            if n.lang is None:
+                return n
+        return None
 
 
 class DescriptionNarratives(Narratives):

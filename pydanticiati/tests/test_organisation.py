@@ -1,6 +1,7 @@
+import xml.etree.ElementTree as ET
+
 import pytest
 from organisation.models import ReportingOrg
-import xml.etree.ElementTree as ET
 
 
 @pytest.fixture

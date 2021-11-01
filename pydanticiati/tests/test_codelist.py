@@ -1,7 +1,8 @@
-import pytest
-from codelists.models import Codelist, CodelistItem
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+import pytest
+from codelists.models import Codelist, CodelistItem
 
 
 @pytest.fixture
@@ -32,6 +33,7 @@ def clitems():
 def test_codelist_items(clitems):
     items = Codelist.from_element(clitems.getroot())  # type: Codelist
     assert isinstance(items, Codelist)
+    assert items.lang == "en"
 
 
 def test_shelve_codelist_items(clitems):

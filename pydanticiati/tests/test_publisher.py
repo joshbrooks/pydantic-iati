@@ -1,6 +1,7 @@
-import pytest
 import xml.etree.ElementTree as ET
-from registry.models import Publisher, IatiPublishersList
+
+import pytest
+from registry.models import IatiPublishersList, Publisher
 
 # Intended to work with data pulled from https://www.iatiregistry.org/publisher/download/xml
 

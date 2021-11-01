@@ -1,0 +1,6 @@
+
+import { CodelistItem, Status } from "./codelist"
+
+export const {{ts_class_name}} = { {% for item in codelist_class.codelist_items.codelist_item %}
+    "{{item.code}}": {{item.typescript}}, {% endfor %}
+} as {[key:string]:{{ts_class_name}}}

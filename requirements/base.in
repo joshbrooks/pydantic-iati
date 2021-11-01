@@ -1,4 +1,0 @@
-fastapi
-pydantic
-email-validator
-idna<3

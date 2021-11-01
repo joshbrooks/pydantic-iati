@@ -1,6 +1,0 @@
--c ./base.txt
--c ./test.txt
-isort
-black
-mypy
-pre-commit

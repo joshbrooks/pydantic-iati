@@ -1,7 +1,8 @@
 from typing import Any, List, Optional
+
+from models import IntField, TextField, XmlBaseModel
 from pydantic import BaseModel
 from pydantic.networks import HttpUrl
-from models import XmlBaseModel, TextField, IntField
 
 
 class Publisher(XmlBaseModel):
@@ -55,7 +56,7 @@ class PackageSearchResultResults(BaseModel):
     url: Optional[HttpUrl]
     notes: str
     owner_org: str
-    extras: list[KeyValuePair]
+    extras: List[KeyValuePair]
     license_url: Optional[HttpUrl]
     title: str
     revision_id: Optional[str]

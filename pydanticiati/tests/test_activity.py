@@ -4,7 +4,6 @@ from pathlib import Path
 from xml.dom import minidom
 
 import pytest
-
 from activity.models import IatiActivities, Title
 from models import Narrative
 
