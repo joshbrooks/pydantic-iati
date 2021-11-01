@@ -52,13 +52,13 @@ def test_narrative_lang(fr_narrative):
 
 @pytest.fixture
 def activity_element():
-    path = Path(".") / "data" / "sample" / "activity-standard-example-annotated.xml"
+    path = Path("pydanticiati") / "data" / "sample" / "activity-standard-example-annotated.xml"
     return ET.parse(path)
 
 
 @pytest.fixture
 def activity_element_real_data():
-    path = Path(".") / "data" / "sample" / "111111_publisher-activities.xml"
+    path = Path("pydanticiati") / "data" / "sample" / "111111_publisher-activities.xml"
     return ET.parse(path)
 
 
@@ -95,7 +95,7 @@ def test_real_activity(activity_element_real_data):
 def test_activity_to_element(activity_element):
     a = IatiActivities.from_element(activity_element.getroot())
     el = a.to_element()
-    path = Path(".") / "data" / "sample" / "activity-standard-example-annotated-out.xml"
+    path = Path("pydanticiati") / "data" / "sample" / "activity-standard-example-annotated-out.xml"
     ET.ElementTree(el).write(path)
 
 
@@ -107,11 +107,11 @@ def test_canonical_comparison(activity_element):
     a = IatiActivities.from_element(activity_element.getroot())
     el = a.to_element()
 
-    input_path = Path(".") / "data" / "sample" / "activity-standard-example-annotated.xml"
+    input_path = Path("pydanticiati") / "data" / "sample" / "activity-standard-example-annotated.xml"
 
-    path = Path(".") / "test_results" / "activity-standard-example-annotated-out.xml"
+    path = Path("pydanticiati") / "test_results" / "activity-standard-example-annotated-out.xml"
 
-    canon_input = Path(".") / "data" / "sample" / "activity-standard-example-annotated-canon.xml"
+    canon_input = Path("pydanticiati") / "data" / "sample" / "activity-standard-example-annotated-canon.xml"
     # canon_output = Path(".") / "test_results" / activity-standard-example-annotated-out-canon.xml"
     s = prettify(el)
 

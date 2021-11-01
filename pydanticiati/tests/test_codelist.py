@@ -26,7 +26,7 @@ def clitem():
 
 @pytest.fixture
 def clitems():
-    channel_codes = Path(".") / "data" / "sample" / "CRSChannelCode.xml"
+    channel_codes = Path("pydanticiati") / "data" / "sample" / "CRSChannelCode.xml"
     return ET.parse(channel_codes)
 
 
