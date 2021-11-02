@@ -1,6 +1,6 @@
 from typing import Any, List, Optional
 
-from models import IntField, TextField, XmlBaseModel
+from base_models import IntField, TextField, XmlBaseModel
 from pydantic import BaseModel
 from pydantic.networks import HttpUrl
 

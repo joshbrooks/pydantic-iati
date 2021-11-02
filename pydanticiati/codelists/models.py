@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from activity.models import Narratives
-from models import Narrative, TextField, XmlBaseModel, XmlLanguageField
+from base_models import Narrative, TextField, XmlBaseModel, XmlLanguageField
 from pydantic import HttpUrl
 
 

@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from models import Narrative, XmlBaseModel
+from base_models import Narrative, XmlBaseModel
 
 
 class ReportingOrg(XmlBaseModel):

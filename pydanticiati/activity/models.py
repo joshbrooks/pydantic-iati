@@ -3,7 +3,7 @@ from decimal import Decimal
 from enum import Enum, IntEnum
 from typing import List, Optional
 
-from models import (
+from base_models import (
     CodelistValue,
     DecimalText,
     IatiVersionEnum,
