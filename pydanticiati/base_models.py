@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import re
 import warnings
@@ -9,12 +10,9 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, List, Optional, Set, Type, Union
 
+import httpx
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic import HttpUrl, fields
-
-import asyncio
-import httpx
-
 
 logger = logging.getLogger(__name__)
 

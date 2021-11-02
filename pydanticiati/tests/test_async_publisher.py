@@ -29,11 +29,9 @@ async def test_an_async_function(httpx_mock: HTTPXMock):
     </iati-identifier>
 </iati-publishers-list>""",
         status_code=200,
-        headers = {'content-type': 'text/xml'}
+        headers={"content-type": "text/xml"},
     )
-
 
     async with AsyncClient() as client:
         publishers = await IatiPublishersList.from_url(client=client)
     assert publishers
-        
