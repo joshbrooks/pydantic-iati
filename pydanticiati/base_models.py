@@ -12,6 +12,10 @@ from typing import Any, List, Optional, Set, Type, Union
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic import HttpUrl, fields
 
+import asyncio
+import httpx
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -224,6 +228,15 @@ class XmlBaseModel(PydanticBaseModel):
     @classmethod
     def from_element(cls, element: ET.Element, verbose: bool = True):
         return XmlToModel(model_class=cls, element=element).from_element()
+
+    @classmethod
+    async def from_url(cls, url: str, client: Optional[httpx.AsyncClient] = None):
+        if client:
+            response = await client.get(url)
+        else:
+            with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=60.0)) as client:
+                response = await client.get(url)
+        return cls.from_element(ET.fromstring(response.content))
 
     def to_element(self, field: Optional[fields.ModelField] = None, tag_name: Optional[str] = None):
 

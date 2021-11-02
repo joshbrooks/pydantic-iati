@@ -23,9 +23,12 @@ description = ""
 authors = ["Joshua Brooks <josh.vdbroek@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 geojson-pydantic = "^0.3.1"
 fastapi-manage = "^0.8.0"
+httpx = "^0.20.0"
+pytest-asyncio = "^0.16.0"
+pytest-httpx = "^0.14.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"

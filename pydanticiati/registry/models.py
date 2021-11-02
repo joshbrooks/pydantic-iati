@@ -3,6 +3,7 @@ from typing import Any, List, Optional
 from base_models import IntField, TextField, XmlBaseModel
 from pydantic import BaseModel
 from pydantic.networks import HttpUrl
+import httpx
 
 
 class Publisher(XmlBaseModel):
@@ -22,6 +23,10 @@ class IatiPublishersList(XmlBaseModel):
 
     iati_identifier: List[Publisher]
 
+    @classmethod
+    async def from_url(cls, url:str = "https://www.iatiregistry.org/publisher/download/xml", client: Optional[httpx.AsyncClient] = None):
+        result = await super().from_url(url, client=client)
+        return result
 
 class KeyValuePair(BaseModel):
     key: str
