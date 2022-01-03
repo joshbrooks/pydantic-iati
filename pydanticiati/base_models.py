@@ -7,13 +7,15 @@ import xml.etree.ElementTree as ET
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, List, Optional, Set, Type, Union
+from typing import Any, List, Optional, Set, Type, TypeVar, Union
 
 import httpx
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic import HttpUrl, fields
 
 logger = logging.getLogger(__name__)
+
+T = TypeVar("T")
 
 
 class CodelistValue(str):
@@ -114,7 +116,7 @@ class XmlToModel:
             return unused_elements
         return None
 
-    def from_element(self, verbose: bool = True):
+    def from_element(self, verbose: bool = False):
         def get_attrib(field: fields.ModelField):
             return self.element.get(self.attrib_name(field))
 
@@ -223,17 +225,21 @@ class XmlBaseModel(PydanticBaseModel):
     """
 
     @classmethod
-    def from_element(cls, element: ET.Element, verbose: bool = True):
-        return XmlToModel(model_class=cls, element=element).from_element()
+    def from_element(cls: Type[T], element: ET.Element) -> T:
+        return XmlToModel(model_class=cls, element=element).from_element()  # type: ignore
 
     @classmethod
-    async def from_url(cls, url: str, client: Optional[httpx.AsyncClient] = None):
+    def from_parent_element(cls: Type[T], element: ET.Element) -> List[T]:
+        return [cls.from_element(element=child) for child in element]  # type: ignore
+
+    @classmethod
+    async def from_url(cls: Type[T], url: str, client: Optional[httpx.AsyncClient] = None) -> T:
         if client:
             response = await client.get(url)
         else:
             with httpx.AsyncClient(timeout=httpx.Timeout(10.0, connect=60.0)) as client:
                 response = await client.get(url)
-        return cls.from_element(ET.fromstring(response.content))
+        return cls.from_element(ET.fromstring(response.content.strip()))  # type: ignore
 
     def to_element(self, field: Optional[fields.ModelField] = None, tag_name: Optional[str] = None):
 

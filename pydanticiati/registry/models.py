@@ -1,13 +1,16 @@
-from typing import Any, List, Optional
+from __future__ import annotations
+
+from typing import List, Optional, TypeVar
 
 import httpx
 from base_models import IntField, TextField, XmlBaseModel
-from pydantic import BaseModel
-from pydantic.networks import HttpUrl
+from sqlmodel import Field, SQLModel
+
+T = TypeVar("T")
 
 
-class Publisher(XmlBaseModel):
-    id: str
+class Publisher(SQLModel, XmlBaseModel, table=True):
+    id: str = Field(default=None, primary_key=True)
     publisher: TextField
     organization_type: TextField
     hq_country_or_region: TextField
@@ -24,63 +27,6 @@ class IatiPublishersList(XmlBaseModel):
     iati_identifier: List[Publisher]
 
     @classmethod
-    async def from_url(cls, url: str = "https://www.iatiregistry.org/publisher/download/xml", client: Optional[httpx.AsyncClient] = None):
+    async def from_url(cls: T, url: str = "https://www.iatiregistry.org/publisher/download/xml", client: Optional[httpx.AsyncClient] = None) -> T:
         result = await super().from_url(url, client=client)
         return result
-
-
-class KeyValuePair(BaseModel):
-    key: str
-    value: Any
-
-
-class PackageSearchResultResults(BaseModel):
-    license_title: str
-    maintainer: Optional[str]
-    relationships_as_object: list
-    private: bool
-    maintainer_email: Optional[str]
-    num_tags: int
-    id: str
-    metadata_created: str
-    metadata_modified: str
-    author: Optional[str]
-    author_email: str
-    state: str
-    version: Optional[str]
-    creator_user_id: str
-    type: str
-    resources: list
-    num_resources: int
-    tags: list
-    groups: list
-    license_id: str
-    relationships_as_subject: list
-    organization: dict
-    name: str
-    isopen: bool
-    url: Optional[HttpUrl]
-    notes: str
-    owner_org: str
-    extras: List[KeyValuePair]
-    license_url: Optional[HttpUrl]
-    title: str
-    revision_id: Optional[str]
-
-
-class PackageSearchResult(BaseModel):
-    count: int
-    sort: str
-    facets: dict
-    results: List[PackageSearchResultResults]
-
-
-class PackageSearch(BaseModel):
-    """
-    This is the result of fetching
-    https://iatiregistry.org/api/3/action/package_search
-    """
-
-    help: HttpUrl
-    success: bool
-    result: PackageSearchResult
